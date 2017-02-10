@@ -4,7 +4,7 @@ Android指纹识别API兼容库，目前整合了安卓原生API以及三星和�
 
 Usage
 -----
-**1. 方案二：添加引用**
+**1. 添加引用**
 
     compile 'com.awei.android.lib:fingerprintidentify:1.0.0'
 
