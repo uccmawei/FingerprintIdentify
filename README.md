@@ -5,7 +5,7 @@ Android指纹识别API兼容库，目前整合了安卓原生API以及三星和�
 Usage
 -----
 
-**1. 添加AAR文件到项目中**
+**1. 方案一：添加AAR文件到项目中**
 
     repositories {
     	flatDir {
@@ -15,13 +15,17 @@ Usage
 
 	compile(name: 'fingerprint', ext: 'aar')
 
-**2. 添加指纹识别权限**
+**2. 方案二：jcenter自动添加**（推荐这个）
+
+    compile 'com.awei.android.lib:fingerprintidentify:1.0.0'
+
+**3. 添加指纹识别权限**
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <uses-permission android:name="com.fingerprints.service.ACCESS_FINGERPRINT_MANAGER"/>
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
 
-**3. FingerprintIdentify方法解释**
+**4. FingerprintIdentify方法解释**
 
     mFingerprintIdentify = new FingerprintIdentify(this);			// 构造对象
 	mFingerprintIdentify.isFingerprintEnable();						// 指纹硬件可用并已经录入指纹
@@ -31,7 +35,7 @@ Usage
 	mFingerprintIdentify.cancelIdentify();							// 关闭指纹识别
 	mFingerprintIdentify.resumeIdentify();							// 恢复指纹识别并保证错误次数不变
 
-**4. startIdentify方法解析**
+**5. startIdentify方法解析**
 
     mFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
             @Override
@@ -50,7 +54,7 @@ Usage
             }
     });
 
-**5. 其他说明**
+**6. 其他说明**
 
 compile 'com.android.support:appcompat-v7:23.4.0'
 
