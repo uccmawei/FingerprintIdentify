@@ -6,7 +6,7 @@ Usage
 -----
 **1. 添加引用**
 
-    compile 'com.awei.android.lib:fingerprintidentify:1.0.0'
+    compile 'com.awei.android.lib:fingerprintidentify:1.0.1'
 
 **2. 添加指纹识别权限**
 
