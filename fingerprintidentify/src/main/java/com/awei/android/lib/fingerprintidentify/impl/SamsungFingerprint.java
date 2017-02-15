@@ -82,12 +82,17 @@ public class SamsungFingerprint extends BaseFingerprint {
 
     @Override
     protected void doCancelIdentify() {
-        try {
-            if (mSpassFingerprint != null) {
-                mSpassFingerprint.cancelIdentify();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (mSpassFingerprint != null) {
+                        mSpassFingerprint.cancelIdentify();
+                    }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+        });
     }
 }
