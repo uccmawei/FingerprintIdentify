@@ -50,3 +50,9 @@ compile 'com.android.support:appcompat-v7:23.4.0'
 这里如果使用25版本的兼容库，可能会导致部分即使是6.0系统的机型也不能正常使用指纹识别，具体请客参考：
 
 [https://code.google.com/p/android/issues/detail?id=231939](https://code.google.com/p/android/issues/detail?id=231939 "code.google.com")
+
+**6. 更新历史**
+
+**v1.0.1** `2017.02.15` 修正三星指纹API调用（开始识别和关闭指纹都必须在主线程调用）
+
+**v1.0.0** `2017.02.10` 发布第一版本
