@@ -13,8 +13,8 @@ public class MeiZuFingerprint extends BaseFingerprint {
     private int[] mMeiZuFingerprintIds;
     private FingerprintManager mMeiZuFingerprintManager;
 
-    public MeiZuFingerprint(Activity activity) {
-        super(activity);
+    public MeiZuFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
+        super(activity, exceptionListener);
 
         try {
             mMeiZuFingerprintManager = FingerprintManager.open();
@@ -24,7 +24,7 @@ public class MeiZuFingerprint extends BaseFingerprint {
                 setRegisteredFinger(mMeiZuFingerprintIds != null && mMeiZuFingerprintIds.length > 0);
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
         }
     }
 
@@ -43,7 +43,7 @@ public class MeiZuFingerprint extends BaseFingerprint {
                 }
             }, mMeiZuFingerprintIds);
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
             onFailed();
         }
     }
@@ -55,7 +55,7 @@ public class MeiZuFingerprint extends BaseFingerprint {
                 mMeiZuFingerprintManager.release();
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
         }
     }
 }

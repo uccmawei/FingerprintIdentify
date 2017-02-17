@@ -8,7 +8,8 @@ import android.app.Activity;
 public abstract class BaseFingerprint {
 
     protected Activity mActivity;
-    private FingerprintIdentifyListener mListener;
+    private FingerprintIdentifyListener mIdentifyListener;
+    private FingerprintIdentifyExceptionListener mExceptionListener;
 
     private int mNotMatchTimes = 0;                     // 已经验证失败次数
     private int mMaxAvailableTimes = 3;                 // 最大可验证次数
@@ -16,21 +17,22 @@ public abstract class BaseFingerprint {
     private boolean mIsRegisteredFinger = false;        // 注册了指纹
     private boolean mIsCanceledIdentify = false;        // 已经关闭了指纹
 
-    public BaseFingerprint(Activity activity) {
+    public BaseFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
         mActivity = activity;
+        mExceptionListener = exceptionListener;
     }
 
     public void startIdentify(int maxAvailableTimes, FingerprintIdentifyListener listener) {
         mMaxAvailableTimes = maxAvailableTimes;
         mIsCanceledIdentify = false;
-        mListener = listener;
+        mIdentifyListener = listener;
         mNotMatchTimes = 0;
 
         doIdentify();
     }
 
     public void resumeIdentify() {
-        if (mListener != null && mNotMatchTimes < mMaxAvailableTimes) {
+        if (mIdentifyListener != null && mNotMatchTimes < mMaxAvailableTimes) {
             mIsCanceledIdentify = false;
             doIdentify();
         }
@@ -45,6 +47,12 @@ public abstract class BaseFingerprint {
         return true;
     }
 
+    protected void onCatchException(Throwable exception) {
+        if (mExceptionListener != null && exception != null) {
+            mExceptionListener.onCatchException(exception);
+        }
+    }
+
     protected abstract void doIdentify();
 
     protected abstract void doCancelIdentify();
@@ -56,11 +64,11 @@ public abstract class BaseFingerprint {
 
         mNotMatchTimes = mMaxAvailableTimes;
 
-        if (mListener != null) {
+        if (mIdentifyListener != null) {
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mListener.onSucceed();
+                    mIdentifyListener.onSucceed();
                 }
             });
         }
@@ -74,11 +82,11 @@ public abstract class BaseFingerprint {
         }
 
         if (++mNotMatchTimes < mMaxAvailableTimes) {
-            if (mListener != null) {
+            if (mIdentifyListener != null) {
                 mActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mListener.onNotMatch(mMaxAvailableTimes - mNotMatchTimes);
+                        mIdentifyListener.onNotMatch(mMaxAvailableTimes - mNotMatchTimes);
                     }
                 });
             }
@@ -100,11 +108,11 @@ public abstract class BaseFingerprint {
 
         mNotMatchTimes = mMaxAvailableTimes;
 
-        if (mListener != null) {
+        if (mIdentifyListener != null) {
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mListener.onFailed();
+                    mIdentifyListener.onFailed();
                 }
             });
         }
@@ -138,5 +146,9 @@ public abstract class BaseFingerprint {
         void onNotMatch(int availableTimes);
 
         void onFailed();
+    }
+
+    public interface FingerprintIdentifyExceptionListener {
+        void onCatchException(Throwable exception);
     }
 }

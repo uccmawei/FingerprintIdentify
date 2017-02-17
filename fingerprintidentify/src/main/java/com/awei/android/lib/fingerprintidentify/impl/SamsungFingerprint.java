@@ -14,8 +14,8 @@ public class SamsungFingerprint extends BaseFingerprint {
     private int mResultCode = -1;
     private SpassFingerprint mSpassFingerprint;
 
-    public SamsungFingerprint(Activity activity) {
-        super(activity);
+    public SamsungFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
+        super(activity, exceptionListener);
 
         try {
             Spass spass = new Spass();
@@ -24,7 +24,7 @@ public class SamsungFingerprint extends BaseFingerprint {
             setHardwareEnable(spass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT));
             setRegisteredFinger(mSpassFingerprint.hasRegisteredFinger());
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
         }
     }
 
@@ -73,7 +73,7 @@ public class SamsungFingerprint extends BaseFingerprint {
                         }
                     });
                 } catch (Throwable e) {
-                    e.printStackTrace();
+                    onCatchException(e);
                     onFailed();
                 }
             }
@@ -90,7 +90,7 @@ public class SamsungFingerprint extends BaseFingerprint {
                         mSpassFingerprint.cancelIdentify();
                     }
                 } catch (Throwable e) {
-                    e.printStackTrace();
+                    onCatchException(e);
                 }
             }
         });

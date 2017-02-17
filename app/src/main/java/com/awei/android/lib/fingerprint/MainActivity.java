@@ -1,7 +1,5 @@
 package com.awei.android.lib.fingerprint;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,10 +13,9 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTvInfo;
     private ScrollView mScrollView;
-    private ClipboardManager mClipboardManager;
     private FingerprintIdentify mFingerprintIdentify;
 
-    private boolean mHasInit = false;
+    private boolean mNeedToRestartFingerprint = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +25,12 @@ public class MainActivity extends AppCompatActivity {
         mTvInfo = (TextView) findViewById(R.id.mTvInfo);
         mScrollView = (ScrollView) findViewById(R.id.mScrollView);
 
-        mClipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-
-        mFingerprintIdentify = new FingerprintIdentify(this);
+        mFingerprintIdentify = new FingerprintIdentify(this, new BaseFingerprint.FingerprintIdentifyExceptionListener() {
+            @Override
+            public void onCatchException(Throwable exception) {
+                exception.printStackTrace();
+            }
+        });
 
         tag("指纹功能：" + mFingerprintIdentify.isFingerprintEnable());
         tag("指纹硬件：" + mFingerprintIdentify.isHardwareEnable());
@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void start(View view) {
-        mHasInit = true;
-        tag("用户 - 开始验证，给你3次机会，请交出你的手指吧");
+        mNeedToRestartFingerprint = true;
+        tag("开始验证指纹，请放置你的手指到指纹传感器上");
         mFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
             @Override
             public void onSucceed() {
-                tag("验证成功" + "\n" + " *****************************");
+                tag("验证成功");
             }
 
             @Override
@@ -59,17 +59,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cancel(View view) {
-        tag("用户 - 取消验证");
+        tag("取消验证");
         mFingerprintIdentify.cancelIdentify();
     }
 
     public void clear(View view) {
         mTvInfo.setText("");
-    }
-
-    public void copy(View view) {
-        mClipboardManager.setPrimaryClip(ClipData.newPlainText("bug", mTvInfo.getText().toString()));
-        tag("复制到剪切板了，发给开发者吧");
     }
 
     private void tag(String msg) {
@@ -80,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mHasInit) {
-            tag("尝试恢复验证如果还没完成验证操作");
+        if (mNeedToRestartFingerprint) {
+            tag("onResume 恢复指纹验证流程");
             mFingerprintIdentify.resumeIdentify();
         }
     }
@@ -89,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mHasInit) {
-            tag("暂停指纹验证 onPause");
+        if (mNeedToRestartFingerprint) {
+            tag("onPause 暂停指纹验证");
             mFingerprintIdentify.cancelIdentify();
         }
     }
@@ -98,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (mHasInit) {
-            tag("暂停指纹验证 onStop");
+        if (mNeedToRestartFingerprint) {
+            tag("onStop 暂停指纹验证");
             mFingerprintIdentify.cancelIdentify();
         }
     }

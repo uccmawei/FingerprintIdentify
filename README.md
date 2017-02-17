@@ -16,13 +16,14 @@ Usage
 
 **3. FingerprintIdentify方法解释**
 
-    mFingerprintIdentify = new FingerprintIdentify(this);			// 构造对象
-	mFingerprintIdentify.isFingerprintEnable();						// 指纹硬件可用并已经录入指纹
-	mFingerprintIdentify.isHardwareEnable();						// 指纹硬件是否可用
-	mFingerprintIdentify.isRegisteredFinger();						// 是否已经录入指纹
-	mFingerprintIdentify.startIdentify(maxTimes, listener);			// 开始验证指纹识别
-	mFingerprintIdentify.cancelIdentify();							// 关闭指纹识别
-	mFingerprintIdentify.resumeIdentify();							// 恢复指纹识别并保证错误次数不变
+    mFingerprintIdentify = new FingerprintIdentify(this);						// 构造对象
+	mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);	// 构造对象，并监听错误回调
+	mFingerprintIdentify.isFingerprintEnable();									// 指纹硬件可用并已经录入指纹
+	mFingerprintIdentify.isHardwareEnable();									// 指纹硬件是否可用
+	mFingerprintIdentify.isRegisteredFinger();									// 是否已经录入指纹
+	mFingerprintIdentify.startIdentify(maxTimes, listener);						// 开始验证指纹识别
+	mFingerprintIdentify.cancelIdentify();										// 关闭指纹识别
+	mFingerprintIdentify.resumeIdentify();										// 恢复指纹识别并保证错误次数不变
 
 **4. startIdentify方法解析**
 
@@ -39,11 +40,19 @@ Usage
 
             @Override
             public void onFailed() {
-                // 错误次数达到上线或者API报错停止了验证，自动结束指纹识别
+                // 错误次数达到上限或者API报错停止了验证，自动结束指纹识别
             }
     });
 
-**5. 其他说明**
+**5. 混淆设置**
+
+    # MeiZuFingerprint
+	-keep class com.fingerprints.service.** { *; }
+
+	# SmsungFingerprint
+	-keep class com.samsung.android.sdk.** { *; }
+
+**6. 其他说明**
 
 compile 'com.android.support:appcompat-v7:23.4.0'
 
@@ -51,7 +60,7 @@ compile 'com.android.support:appcompat-v7:23.4.0'
 
 [https://code.google.com/p/android/issues/detail?id=231939](https://code.google.com/p/android/issues/detail?id=231939 "code.google.com")
 
-**6. 更新历史**
+**7. 更新历史**
 
 **v1.0.1** `2017.02.15` 修正三星指纹API调用（开始识别和关闭指纹都必须在主线程调用）
 

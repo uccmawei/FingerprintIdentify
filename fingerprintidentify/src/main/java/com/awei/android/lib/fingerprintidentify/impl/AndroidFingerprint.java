@@ -14,15 +14,15 @@ public class AndroidFingerprint extends BaseFingerprint {
     private CancellationSignal mCancellationSignal;
     private FingerprintManagerCompat mFingerprintManagerCompat;
 
-    public AndroidFingerprint(Activity activity) {
-        super(activity);
+    public AndroidFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
+        super(activity, exceptionListener);
 
         try {
             mFingerprintManagerCompat = FingerprintManagerCompat.from(activity);
             setHardwareEnable(mFingerprintManagerCompat.isHardwareDetected());
             setRegisteredFinger(mFingerprintManagerCompat.hasEnrolledFingerprints());
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
         }
     }
 
@@ -50,7 +50,7 @@ public class AndroidFingerprint extends BaseFingerprint {
                 }
             }, null);
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
             onFailed();
         }
     }
@@ -62,7 +62,7 @@ public class AndroidFingerprint extends BaseFingerprint {
                 mCancellationSignal.cancel();
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            onCatchException(e);
         }
     }
 

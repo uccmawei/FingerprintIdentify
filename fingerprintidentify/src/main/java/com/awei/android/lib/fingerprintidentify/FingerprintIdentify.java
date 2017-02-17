@@ -3,6 +3,7 @@ package com.awei.android.lib.fingerprintidentify;
 import android.app.Activity;
 
 import com.awei.android.lib.fingerprintidentify.base.BaseFingerprint;
+import com.awei.android.lib.fingerprintidentify.base.BaseFingerprint.FingerprintIdentifyExceptionListener;
 import com.awei.android.lib.fingerprintidentify.impl.AndroidFingerprint;
 import com.awei.android.lib.fingerprintidentify.impl.MeiZuFingerprint;
 import com.awei.android.lib.fingerprintidentify.impl.SamsungFingerprint;
@@ -17,7 +18,11 @@ public class FingerprintIdentify {
     private BaseFingerprint mSubFingerprint;
 
     public FingerprintIdentify(Activity activity) {
-        AndroidFingerprint androidFingerprint = new AndroidFingerprint(activity);
+        this(activity, null);
+    }
+
+    public FingerprintIdentify(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
+        AndroidFingerprint androidFingerprint = new AndroidFingerprint(activity, exceptionListener);
         if (androidFingerprint.isHardwareEnable()) {
             mSubFingerprint = androidFingerprint;
             if (androidFingerprint.isRegisteredFinger()) {
@@ -26,7 +31,7 @@ public class FingerprintIdentify {
             }
         }
 
-        SamsungFingerprint samsungFingerprint = new SamsungFingerprint(activity);
+        SamsungFingerprint samsungFingerprint = new SamsungFingerprint(activity, exceptionListener);
         if (samsungFingerprint.isHardwareEnable()) {
             if (mSubFingerprint != null) {
                 mSubFingerprint = samsungFingerprint;
@@ -37,7 +42,7 @@ public class FingerprintIdentify {
             }
         }
 
-        MeiZuFingerprint meiZuFingerprint = new MeiZuFingerprint(activity);
+        MeiZuFingerprint meiZuFingerprint = new MeiZuFingerprint(activity, exceptionListener);
         if (meiZuFingerprint.isHardwareEnable()) {
             if (mSubFingerprint != null) {
                 mSubFingerprint = meiZuFingerprint;
