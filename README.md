@@ -2,11 +2,13 @@
 
 Android指纹识别API兼容库，目前整合了安卓原生API以及三星和魅族的指纹SDK，支持继续拓展。
 
+API调用优先级：安卓原生 > 三星SDK > 魅族SDK
+
 Usage
 -----
 **1. 添加引用**
 
-    compile 'com.awei.android.lib:fingerprintidentify:1.0.1'
+    compile 'com.awei.android.lib:fingerprintidentify:1.0.2'
 
 **2. 添加指纹识别权限**
 
@@ -62,6 +64,8 @@ compile 'com.android.support:appcompat-v7:23.4.0'
 
 **7. 更新历史**
 
-**v1.0.1** `2017.02.15` 修正三星指纹API调用（开始识别和关闭指纹都必须在主线程调用）
+**v1.0.2**　`2017.02.17`　新增异常回调接口
 
-**v1.0.0** `2017.02.10` 发布第一版本
+**v1.0.1**　`2017.02.15`　修正三星指纹API调用（开始识别和关闭指纹都必须在主线程调用）
+
+**v1.0.0**　`2017.02.10`　发布第一版本
