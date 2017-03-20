@@ -8,7 +8,7 @@ Usage
 -----
 **1. 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.0'
+    compile 'com.wei.android.lib:fingerprintidentify:1.1.1'
 
 **2. 添加指纹识别权限**
 
