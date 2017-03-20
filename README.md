@@ -18,14 +18,14 @@ Usage
 
 **3. FingerprintIdentify方法解释**
 
-    mFingerprintIdentify = new FingerprintIdentify(this);				// 构造对象
+    mFingerprintIdentify = new FingerprintIdentify(this);						// 构造对象
 	mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);	// 构造对象，并监听错误回调
-	mFingerprintIdentify.isFingerprintEnable();					// 指纹硬件可用并已经录入指纹
-	mFingerprintIdentify.isHardwareEnable();					// 指纹硬件是否可用
-	mFingerprintIdentify.isRegisteredFingerprint();					// 是否已经录入指纹
-	mFingerprintIdentify.startIdentify(maxTimes, listener);				// 开始验证指纹识别
-	mFingerprintIdentify.cancelIdentify();						// 关闭指纹识别
-	mFingerprintIdentify.resumeIdentify();						// 恢复指纹识别并保证错误次数不变
+	mFingerprintIdentify.isFingerprintEnable();									// 指纹硬件可用并已经录入指纹
+	mFingerprintIdentify.isHardwareEnable();									// 指纹硬件是否可用
+	mFingerprintIdentify.isRegisteredFingerprint();								// 是否已经录入指纹
+	mFingerprintIdentify.startIdentify(maxTimes, listener);						// 开始验证指纹识别
+	mFingerprintIdentify.cancelIdentify();										// 关闭指纹识别
+	mFingerprintIdentify.resumeIdentify();										// 恢复指纹识别并保证错误次数不变
 
 **4. startIdentify方法解析**
 
@@ -56,13 +56,15 @@ Usage
 
 **6. 其他说明**
 
-compile 'com.android.support:appcompat-v7:25.0.0'
+compile 'com.android.support:appcompat-v7:23.4.0'
 
 这里如果使用25.X版本的兼容库，可能会导致部分即使是6.0系统的机型也不能正常使用指纹识别，具体请客参考：
 
 [https://code.google.com/p/android/issues/detail?id=231939](https://code.google.com/p/android/issues/detail?id=231939 "code.google.com")
 
 **7. 更新历史**
+
+**v1.1.1**　`2017.03.20`　AppCompat支持库从25.2.0降级到23.4.0，因为第6点问题还没修复
 
 **v1.1.0**　`2017.03.16`　调整包名，修正魅族指纹SDK的API调用问题
 
