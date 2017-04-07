@@ -33,9 +33,7 @@ public class FingerprintIdentify {
 
         SamsungFingerprint samsungFingerprint = new SamsungFingerprint(activity, exceptionListener);
         if (samsungFingerprint.isHardwareEnable()) {
-            if (mSubFingerprint != null) {
-                mSubFingerprint = samsungFingerprint;
-            }
+            mSubFingerprint = samsungFingerprint;
             if (samsungFingerprint.isRegisteredFingerprint()) {
                 mFingerprint = samsungFingerprint;
                 return;
@@ -44,9 +42,7 @@ public class FingerprintIdentify {
 
         MeiZuFingerprint meiZuFingerprint = new MeiZuFingerprint(activity, exceptionListener);
         if (meiZuFingerprint.isHardwareEnable()) {
-            if (mSubFingerprint != null) {
-                mSubFingerprint = meiZuFingerprint;
-            }
+            mSubFingerprint = meiZuFingerprint;
             if (meiZuFingerprint.isRegisteredFingerprint()) {
                 mFingerprint = meiZuFingerprint;
             }
