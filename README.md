@@ -4,6 +4,8 @@ Android指纹识别API兼容库，目前整合了安卓原生API以及三星和�
 
 API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
+![](https://github.com/uccmawei/FingerprintIdentify/raw/master/demo.png)
+
 Usage
 -----
 **1. 添加引用**
