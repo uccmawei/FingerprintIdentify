@@ -75,3 +75,8 @@ compile 'com.android.support:appcompat-v7:23.4.0'
 **v1.0.1**　`2017.02.15`　修正三星指纹API调用（开始识别和关闭指纹都必须在主线程调用）
 
 **v1.0.0**　`2017.02.10`　发布第一版本
+
+
+## License ##
+
+Licensed under the MIT License, see the [LICENSE](https://github.com/uccmawei/FingerprintIdentify/blob/master/LICENSE) for copying permission.
