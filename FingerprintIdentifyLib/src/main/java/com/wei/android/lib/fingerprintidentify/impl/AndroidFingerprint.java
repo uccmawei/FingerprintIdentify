@@ -1,10 +1,11 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
 import android.app.Activity;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.os.Build;
 import android.support.v4.os.CancellationSignal;
 
 import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint;
+import com.wei.android.lib.fingerprintidentify.aosp.FingerprintManagerCompat;
 
 /**
  * Copyright (c) 2017 Awei
@@ -38,6 +39,9 @@ public class AndroidFingerprint extends BaseFingerprint {
         super(activity, exceptionListener);
 
         try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return;
+            }
             mFingerprintManagerCompat = FingerprintManagerCompat.from(activity);
             setHardwareEnable(mFingerprintManagerCompat.isHardwareDetected());
             setRegisteredFingerprint(mFingerprintManagerCompat.hasEnrolledFingerprints());

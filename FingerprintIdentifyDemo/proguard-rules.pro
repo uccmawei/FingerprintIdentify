@@ -24,6 +24,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-ignorewarnings
+
 # MeiZuFingerprint
 -keep class com.fingerprints.service.** { *; }
 

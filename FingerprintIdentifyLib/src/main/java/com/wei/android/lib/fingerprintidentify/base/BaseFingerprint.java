@@ -36,6 +36,7 @@ public abstract class BaseFingerprint {
     private boolean mIsHardwareEnable = false;              // 硬件可用
     private boolean mIsRegisteredFingerprint = false;       // 已经录入了指纹
     private boolean mIsCanceledIdentify = false;            // 已经关闭了指纹
+    private boolean mIsCalledStartIdentify = false;         // 已经开始了指纹，暂停后才能恢复
 
     public BaseFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
         mActivity = activity;
@@ -44,8 +45,9 @@ public abstract class BaseFingerprint {
 
     public void startIdentify(int maxAvailableTimes, FingerprintIdentifyListener listener) {
         mMaxAvailableTimes = maxAvailableTimes;
-        mIsCanceledIdentify = false;
+        mIsCalledStartIdentify = true;
         mIdentifyListener = listener;
+        mIsCanceledIdentify = false;
         mNotMatchTimes = 0;
 
         doIdentify();
@@ -55,7 +57,7 @@ public abstract class BaseFingerprint {
      * 比如在验证指纹时来电话了，就暂时关闭了指纹识别，打完电话后再打开APP时可以继续上次未完成的操作，继续验证指纹。
      */
     public void resumeIdentify() {
-        if (mIdentifyListener != null && mNotMatchTimes < mMaxAvailableTimes) {
+        if (mIsCalledStartIdentify && mIdentifyListener != null && mNotMatchTimes < mMaxAvailableTimes) {
             mIsCanceledIdentify = false;
             doIdentify();
         }

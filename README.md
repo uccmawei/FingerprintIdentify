@@ -10,7 +10,7 @@ Usage
 -----
 **1. 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.1'
+    compile 'com.wei.android.lib:fingerprintidentify:1.1.2'
 
 **2. 添加指纹识别权限**
 
@@ -56,15 +56,13 @@ Usage
     # SmsungFingerprint
     -keep class com.samsung.android.sdk.** { *; }
 
-**6. 其他说明**
+**6. 相关资料**
 
-compile 'com.android.support:appcompat-v7:23.4.0'
-
-这里如果使用25.X版本的兼容库，可能会导致部分即使是6.0系统的机型也不能正常使用指纹识别，具体请客参考：
-
-[https://code.google.com/p/android/issues/detail?id=231939](https://code.google.com/p/android/issues/detail?id=231939 "code.google.com")
+https://code.google.com/p/android/issues/detail?id=231939
 
 **7. 更新历史**
+
+**v1.1.2**　`2017.04.25`　修改AOSP源码，避开 PackageManager.FEATURE_FINGERPRINT 的限制
 
 **v1.1.1**　`2017.03.20`　AppCompat支持库从25.2.0降级到23.4.0，因为第6点问题还没修复
 

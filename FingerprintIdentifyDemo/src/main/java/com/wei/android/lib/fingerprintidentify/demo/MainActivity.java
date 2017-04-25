@@ -21,11 +21,38 @@ public class MainActivity extends AppCompatActivity {
 
         mTvTips = (TextView) findViewById(R.id.mTvTips);
 
-        mFingerprintIdentify = new FingerprintIdentify(this);
+        mFingerprintIdentify = new FingerprintIdentify(this, new BaseFingerprint.FingerprintIdentifyExceptionListener() {
+            @Override
+            public void onCatchException(Throwable exception) {
+                mTvTips.append("\n" + exception.getLocalizedMessage());
+            }
+        });
+
+        mTvTips.append("初始化，获取状态：");
+        mTvTips.append("\nisHardwareEnable: " + mFingerprintIdentify.isHardwareEnable());
+        mTvTips.append("\nisRegisteredFingerprint: " + mFingerprintIdentify.isRegisteredFingerprint());
+        mTvTips.append("\nisFingerprintEnable: " + mFingerprintIdentify.isFingerprintEnable());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mTvTips.append("\n恢复指纹识别 ifNeeded");
+        mFingerprintIdentify.resumeIdentify();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mTvTips.append("\n关闭指纹识别");
+        mFingerprintIdentify.cancelIdentify();
     }
 
     public void start(View view) {
         mTvTips.append("\n开始验证，共3次机会，请放置指纹");
+        mFingerprintIdentify.resumeIdentify();
         mFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
             @Override
             public void onSucceed() {

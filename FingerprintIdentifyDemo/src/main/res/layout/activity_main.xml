@@ -39,7 +39,6 @@
             android:layout_marginTop="8dp"
             android:lineSpacingExtra="6dp"
             android:padding="8dp"
-            android:text="Hello\nFingerprintIdentify."
             android:textSize="15sp"/>
 
     </ScrollView>
