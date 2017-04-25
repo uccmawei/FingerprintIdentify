@@ -6,6 +6,8 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
 ![](https://github.com/uccmawei/FingerprintIdentify/raw/master/demo.png)
 
+[![](https://github.com/uccmawei/FingerprintIdentify/raw/master/QRCode.png)](https://github.com/uccmawei/FingerprintIdentify/raw/master/demo.apk)
+
 Usage
 -----
 **1. 添加引用**
