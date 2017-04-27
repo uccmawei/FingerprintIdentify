@@ -1,6 +1,6 @@
 # FingerprintIdentify
 
-This is a expandable Android fingerprint api compatible lib, also include [Samsung](http://developer.samsung.com/galaxy/pass#) and [MeiZu](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)'s official fingerprint api.
++This is an expandable Android fingerprint api compatible lib, which also combine [Samsung](http://developer.samsung.com/galaxy/pass#) and [MeiZu](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)'s official fingerprint api.
 
 Api priority level：Android > Samsung > MeiZu
 
@@ -22,9 +22,9 @@ Api priority level：Android > Samsung > MeiZu
 
     mFingerprintIdentify = new FingerprintIdentify(this);                       // create object
     mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // create with error listener
-    mFingerprintIdentify.isFingerprintEnable();                                 // is fingerprint enable
-    mFingerprintIdentify.isHardwareEnable();                                    // is hardware enable
-    mFingerprintIdentify.isRegisteredFingerprint();                             // has enrolled fingerprints 
+    mFingerprintIdentify.isFingerprintEnable();                                 // is fingerprint usable
+    mFingerprintIdentify.isHardwareEnable();                                    // is hardware usable
+    mFingerprintIdentify.isRegisteredFingerprint();                             // is fingerprint collected
     mFingerprintIdentify.startIdentify(maxTimes, listener);                     // start identify
     mFingerprintIdentify.cancelIdentify();                                      // cancel identify
     mFingerprintIdentify.resumeIdentify();                                      // resume identify
