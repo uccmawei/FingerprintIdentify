@@ -28,17 +28,10 @@ import java.security.Signature;
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
 
-/**
- * A class that coordinates access to the fingerprint hardware.
- * <p>
- * On platforms before {@link Build.VERSION_CODES#M}, this class behaves as there would
- * be no fingerprint hardware available.
- */
 public final class FingerprintManagerCompat {
 
     private Context mContext;
 
-    /** Get a {@link FingerprintManagerCompat} instance for a provided context. */
     public static FingerprintManagerCompat from(Context context) {
         return new FingerprintManagerCompat(context);
     }
@@ -48,6 +41,7 @@ public final class FingerprintManagerCompat {
     }
 
     static final FingerprintManagerCompatImpl IMPL;
+
     static {
         final int version = Build.VERSION.SDK_INT;
         if (version >= 23) {
@@ -57,48 +51,20 @@ public final class FingerprintManagerCompat {
         }
     }
 
-    /**
-     * Determine if there is at least one fingerprint enrolled.
-     *
-     * @return true if at least one fingerprint is enrolled, false otherwise
-     */
     public boolean hasEnrolledFingerprints() {
         return IMPL.hasEnrolledFingerprints(mContext);
     }
 
-    /**
-     * Determine if fingerprint hardware is present and functional.
-     *
-     * @return true if hardware is present and functional, false otherwise.
-     */
     public boolean isHardwareDetected() {
         return IMPL.isHardwareDetected(mContext);
     }
 
-    /**
-     * Request authentication of a crypto object. This call warms up the fingerprint hardware
-     * and starts scanning for a fingerprint. It terminates when
-     * {@link AuthenticationCallback#onAuthenticationError(int, CharSequence)} or
-     * {@link AuthenticationCallback#onAuthenticationSucceeded(AuthenticationResult)} is called, at
-     * which point the object is no longer valid. The operation can be canceled by using the
-     * provided cancel object.
-     *
-     * @param crypto object associated with the call or null if none required.
-     * @param flags optional flags; should be 0
-     * @param cancel an object that can be used to cancel authentication
-     * @param callback an object to receive authentication events
-     * @param handler an optional handler for events
-     */
     public void authenticate(@Nullable CryptoObject crypto, int flags,
-            @Nullable CancellationSignal cancel, @NonNull AuthenticationCallback callback,
-            @Nullable Handler handler) {
+                             @Nullable CancellationSignal cancel, @NonNull AuthenticationCallback callback,
+                             @Nullable Handler handler) {
         IMPL.authenticate(mContext, crypto, flags, cancel, callback, handler);
     }
 
-    /**
-     * A wrapper class for the crypto objects supported by FingerprintManager. Currently the
-     * framework supports {@link Signature} and {@link Cipher} objects.
-     */
     public static class CryptoObject {
 
         private final Signature mSignature;
@@ -124,29 +90,19 @@ public final class FingerprintManagerCompat {
             mSignature = null;
         }
 
-        /**
-         * Get {@link Signature} object.
-         * @return {@link Signature} object or null if this doesn't contain one.
-         */
-        public Signature getSignature() { return mSignature; }
+        public Signature getSignature() {
+            return mSignature;
+        }
 
-        /**
-         * Get {@link Cipher} object.
-         * @return {@link Cipher} object or null if this doesn't contain one.
-         */
-        public Cipher getCipher() { return mCipher; }
+        public Cipher getCipher() {
+            return mCipher;
+        }
 
-        /**
-         * Get {@link Mac} object.
-         * @return {@link Mac} object or null if this doesn't contain one.
-         */
-        public Mac getMac() { return mMac; }
+        public Mac getMac() {
+            return mMac;
+        }
     }
 
-    /**
-     * Container for callback data from {@link FingerprintManagerCompat#authenticate(CryptoObject,
-     *     int, CancellationSignal, AuthenticationCallback, Handler)}.
-     */
     public static final class AuthenticationResult {
         private CryptoObject mCryptoObject;
 
@@ -154,60 +110,35 @@ public final class FingerprintManagerCompat {
             mCryptoObject = crypto;
         }
 
-        /**
-         * Obtain the crypto object associated with this transaction
-         * @return crypto object provided to {@link FingerprintManagerCompat#authenticate(
-         *         CryptoObject, int, CancellationSignal, AuthenticationCallback, Handler)}.
-         */
-        public CryptoObject getCryptoObject() { return mCryptoObject; }
+        public CryptoObject getCryptoObject() {
+            return mCryptoObject;
+        }
     }
 
-    /**
-     * Callback structure provided to {@link FingerprintManagerCompat#authenticate(CryptoObject,
-     * int, CancellationSignal, AuthenticationCallback, Handler)}. Users of {@link
-     * FingerprintManagerCompat#authenticate(CryptoObject, int, CancellationSignal,
-     * AuthenticationCallback, Handler) } must provide an implementation of this for listening to
-     * fingerprint events.
-     */
     public static abstract class AuthenticationCallback {
-        /**
-         * Called when an unrecoverable error has been encountered and the operation is complete.
-         * No further callbacks will be made on this object.
-         * @param errMsgId An integer identifying the error message
-         * @param errString A human-readable error string that can be shown in UI
-         */
-        public void onAuthenticationError(int errMsgId, CharSequence errString) { }
 
-        /**
-         * Called when a recoverable error has been encountered during authentication. The help
-         * string is provided to give the user guidance for what went wrong, such as
-         * "Sensor dirty, please clean it."
-         * @param helpMsgId An integer identifying the error message
-         * @param helpString A human-readable string that can be shown in UI
-         */
-        public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) { }
+        public void onAuthenticationError(int errMsgId, CharSequence errString) {
+        }
 
-        /**
-         * Called when a fingerprint is recognized.
-         * @param result An object containing authentication-related data
-         */
-        public void onAuthenticationSucceeded(AuthenticationResult result) { }
+        public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+        }
 
-        /**
-         * Called when a fingerprint is valid but not recognized.
-         */
-        public void onAuthenticationFailed() { }
+        public void onAuthenticationSucceeded(AuthenticationResult result) {
+        }
+
+        public void onAuthenticationFailed() {
+        }
     }
 
     private interface FingerprintManagerCompatImpl {
         boolean hasEnrolledFingerprints(Context context);
+
         boolean isHardwareDetected(Context context);
-        void authenticate(Context context, CryptoObject crypto, int flags,
-                          CancellationSignal cancel, AuthenticationCallback callback, Handler handler);
+
+        void authenticate(Context context, CryptoObject crypto, int flags, CancellationSignal cancel, AuthenticationCallback callback, Handler handler);
     }
 
-    private static class LegacyFingerprintManagerCompatImpl
-            implements FingerprintManagerCompatImpl {
+    private static class LegacyFingerprintManagerCompatImpl implements FingerprintManagerCompatImpl {
 
         public LegacyFingerprintManagerCompatImpl() {
         }
@@ -223,9 +154,7 @@ public final class FingerprintManagerCompat {
         }
 
         @Override
-        public void authenticate(Context context, CryptoObject crypto, int flags,
-                CancellationSignal cancel, AuthenticationCallback callback, Handler handler) {
-            // TODO: Figure out behavior when there is no fingerprint hardware available
+        public void authenticate(Context context, CryptoObject crypto, int flags, CancellationSignal cancel, AuthenticationCallback callback, Handler handler) {
         }
     }
 
@@ -245,15 +174,13 @@ public final class FingerprintManagerCompat {
         }
 
         @Override
-        public void authenticate(Context context, CryptoObject crypto, int flags,
-                CancellationSignal cancel, AuthenticationCallback callback, Handler handler) {
+        public void authenticate(Context context, CryptoObject crypto, int flags, CancellationSignal cancel,
+                                 AuthenticationCallback callback, Handler handler) {
             FingerprintManagerCompatApi23.authenticate(context, wrapCryptoObject(crypto), flags,
-                    cancel != null ? cancel.getCancellationSignalObject() : null,
-                    wrapCallback(callback), handler);
+                    cancel != null ? cancel.getCancellationSignalObject() : null, wrapCallback(callback), handler);
         }
 
-        private static FingerprintManagerCompatApi23.CryptoObject wrapCryptoObject(
-                CryptoObject cryptoObject) {
+        private static FingerprintManagerCompatApi23.CryptoObject wrapCryptoObject(CryptoObject cryptoObject) {
             if (cryptoObject == null) {
                 return null;
             } else if (cryptoObject.getCipher() != null) {
@@ -267,8 +194,7 @@ public final class FingerprintManagerCompat {
             }
         }
 
-        static CryptoObject unwrapCryptoObject(
-                FingerprintManagerCompatApi23.CryptoObject cryptoObject) {
+        static CryptoObject unwrapCryptoObject(FingerprintManagerCompatApi23.CryptoObject cryptoObject) {
             if (cryptoObject == null) {
                 return null;
             } else if (cryptoObject.getCipher() != null) {
@@ -282,8 +208,7 @@ public final class FingerprintManagerCompat {
             }
         }
 
-        private static FingerprintManagerCompatApi23.AuthenticationCallback wrapCallback(
-                final AuthenticationCallback callback) {
+        private static FingerprintManagerCompatApi23.AuthenticationCallback wrapCallback(final AuthenticationCallback callback) {
             return new FingerprintManagerCompatApi23.AuthenticationCallback() {
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
@@ -296,10 +221,8 @@ public final class FingerprintManagerCompat {
                 }
 
                 @Override
-                public void onAuthenticationSucceeded(
-                        FingerprintManagerCompatApi23.AuthenticationResultInternal result) {
-                    callback.onAuthenticationSucceeded(new AuthenticationResult(
-                            unwrapCryptoObject(result.getCryptoObject())));
+                public void onAuthenticationSucceeded(FingerprintManagerCompatApi23.AuthenticationResultInternal result) {
+                    callback.onAuthenticationSucceeded(new AuthenticationResult(unwrapCryptoObject(result.getCryptoObject())));
                 }
 
                 @Override

@@ -30,10 +30,6 @@ import javax.crypto.Mac;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-/**
- * Actual FingerprintManagerCompat implementation for API level 23 and later.
- * @hide
- */
 @RequiresApi(23)
 @TargetApi(23)
 @RestrictTo(LIBRARY_GROUP)
@@ -53,13 +49,10 @@ public final class FingerprintManagerCompatApi23 {
         return (fp != null) && fp.isHardwareDetected();
     }
 
-    public static void authenticate(Context context, CryptoObject crypto, int flags, Object cancel,
-            AuthenticationCallback callback, Handler handler) {
+    public static void authenticate(Context context, CryptoObject crypto, int flags, Object cancel, AuthenticationCallback callback, Handler handler) {
         final FingerprintManager fp = getFingerprintManagerOrNull(context);
         if (fp != null) {
-            fp.authenticate(wrapCryptoObject(crypto),
-                    (android.os.CancellationSignal) cancel, flags,
-                    wrapCallback(callback), handler);
+            fp.authenticate(wrapCryptoObject(crypto), (android.os.CancellationSignal) cancel, flags, wrapCallback(callback), handler);
         }
     }
 
@@ -91,8 +84,7 @@ public final class FingerprintManagerCompatApi23 {
         }
     }
 
-    private static FingerprintManager.AuthenticationCallback wrapCallback(
-            final AuthenticationCallback callback) {
+    private static FingerprintManager.AuthenticationCallback wrapCallback(final AuthenticationCallback callback) {
         return new FingerprintManager.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errMsgId, CharSequence errString) {
@@ -106,8 +98,7 @@ public final class FingerprintManagerCompatApi23 {
 
             @Override
             public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
-                callback.onAuthenticationSucceeded(new AuthenticationResultInternal(
-                        unwrapCryptoObject(result.getCryptoObject())));
+                callback.onAuthenticationSucceeded(new AuthenticationResultInternal(unwrapCryptoObject(result.getCryptoObject())));
             }
 
             @Override
@@ -141,9 +132,17 @@ public final class FingerprintManagerCompatApi23 {
             mSignature = null;
         }
 
-        public Signature getSignature() { return mSignature; }
-        public Cipher getCipher() { return mCipher; }
-        public Mac getMac() { return mMac; }
+        public Signature getSignature() {
+            return mSignature;
+        }
+
+        public Cipher getCipher() {
+            return mCipher;
+        }
+
+        public Mac getMac() {
+            return mMac;
+        }
     }
 
     public static final class AuthenticationResultInternal {
@@ -153,14 +152,23 @@ public final class FingerprintManagerCompatApi23 {
             mCryptoObject = crypto;
         }
 
-        public CryptoObject getCryptoObject() { return mCryptoObject; }
+        public CryptoObject getCryptoObject() {
+            return mCryptoObject;
+        }
     }
 
     public static abstract class AuthenticationCallback {
 
-        public void onAuthenticationError(int errMsgId, CharSequence errString) { }
-        public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) { }
-        public void onAuthenticationSucceeded(AuthenticationResultInternal result) { }
-        public void onAuthenticationFailed() { }
+        public void onAuthenticationError(int errMsgId, CharSequence errString) {
+        }
+
+        public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+        }
+
+        public void onAuthenticationSucceeded(AuthenticationResultInternal result) {
+        }
+
+        public void onAuthenticationFailed() {
+        }
     }
 }

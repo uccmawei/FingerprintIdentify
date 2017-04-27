@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
 }
 
 dependencies {
@@ -35,7 +40,7 @@ publish {
     userOrg = 'uccmawei'
     groupId = 'com.wei.android.lib'
     artifactId = 'fingerprintidentify'
-    publishVersion = '1.1.1'
+    publishVersion = '1.1.2'
     desc = 'Android fingerprint api for Android, Samsung, MeiZu'
     website = 'https://github.com/uccmawei/FingerprintIdentify'
 }
