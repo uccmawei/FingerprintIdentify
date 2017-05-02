@@ -2,6 +2,8 @@
 
 This is an expandable Android fingerprint api compatible lib, which also combine [Samsung](http://developer.samsung.com/galaxy/pass#) and [MeiZu](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)'s official fingerprint api.
 
+Samsung and MeiZu's fingerprint SDK supports most devices which system versions less than Android 6.0 .
+
 Api priority level：Android > Samsung > MeiZu
 
 [![](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/QRCode_en.png)](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/demo.apk)

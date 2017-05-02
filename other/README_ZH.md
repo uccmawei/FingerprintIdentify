@@ -1,6 +1,8 @@
 # FingerprintIdentify
 
-Android指纹识别API兼容库，目前整合了安卓原生API以及 [三星](http://developer.samsung.com/galaxy/pass#) 和 [魅族](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI) 的指纹SDK，支持继续拓展。
+这是一个可拓展的Android指纹识别API兼容库，目前集成了 安卓原生API 以及 [三星](http://developer.samsung.com/galaxy/pass#) 和 [魅族](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI) 的指纹SDK。
+
+三星和魅族的指纹SDK支持大部分系统低于安卓6.0的设备。
 
 API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
