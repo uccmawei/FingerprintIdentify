@@ -12,7 +12,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.2'
+    compile 'com.wei.android.lib:fingerprintidentify:1.1.3'
 
 **2. AndroidManifest**
 
@@ -64,6 +64,8 @@ https://code.google.com/p/android/issues/detail?id=231939
 
 **7. Version Update**
 
+**v1.1.3**　`2017.05.22`　Update the method getFingerprintManager. Because [ISSUE#11](https://github.com/uccmawei/FingerprintIdentify/issues/11)
+
 **v1.1.2**　`2017.04.25`　Modify AOSP's code，avoid the PackageManager.FEATURE_FINGERPRINT limit.
 
 **v1.1.1**　`2017.03.20`　Modify gradle AppCompat lib version.
@@ -75,7 +77,6 @@ https://code.google.com/p/android/issues/detail?id=231939
 **v1.0.1**　`2017.02.15`　Bug fixed.
 
 **v1.0.0**　`2017.02.10`　Release v1.
-
 
 ## License ##
 
