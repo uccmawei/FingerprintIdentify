@@ -36,7 +36,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 public final class FingerprintManagerCompatApi23 {
 
     private static FingerprintManager getFingerprintManagerOrNull(Context context) {
-        return context.getSystemService(FingerprintManager.class);
+        return (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
     }
 
     public static boolean hasEnrolledFingerprints(Context context) {
