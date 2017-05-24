@@ -1,6 +1,8 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
 import android.app.Activity;
+import android.os.Build;
+import android.text.TextUtils;
 
 import com.fingerprints.service.FingerprintManager;
 import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint;
@@ -38,7 +40,7 @@ public class MeiZuFingerprint extends BaseFingerprint {
         try {
             mMeiZuFingerprintManager = FingerprintManager.open();
             if (mMeiZuFingerprintManager != null) {
-                setHardwareEnable(true);
+                setHardwareEnable(isMeiZuDevice(Build.MANUFACTURER));
                 int[] fingerprintIds = mMeiZuFingerprintManager.getIds();
                 setRegisteredFingerprint(fingerprintIds != null && fingerprintIds.length > 0);
             }
@@ -83,5 +85,9 @@ public class MeiZuFingerprint extends BaseFingerprint {
         } catch (Throwable e) {
             onCatchException(e);
         }
+    }
+
+    private boolean isMeiZuDevice(String manufacturer) {
+        return !TextUtils.isEmpty(manufacturer) && manufacturer.toUpperCase().contains("MEIZU");
     }
 }

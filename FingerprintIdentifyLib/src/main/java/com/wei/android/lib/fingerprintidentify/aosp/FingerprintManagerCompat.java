@@ -17,7 +17,6 @@
 package com.wei.android.lib.fingerprintidentify.aosp;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,15 +39,10 @@ public final class FingerprintManagerCompat {
         mContext = context;
     }
 
-    static final FingerprintManagerCompatImpl IMPL;
+    private static final FingerprintManagerCompatImpl IMPL;
 
     static {
-        final int version = Build.VERSION.SDK_INT;
-        if (version >= 23) {
-            IMPL = new Api23FingerprintManagerCompatImpl();
-        } else {
-            IMPL = new LegacyFingerprintManagerCompatImpl();
-        }
+        IMPL = new Api23FingerprintManagerCompatImpl();
     }
 
     public boolean hasEnrolledFingerprints() {
@@ -136,26 +130,6 @@ public final class FingerprintManagerCompat {
         boolean isHardwareDetected(Context context);
 
         void authenticate(Context context, CryptoObject crypto, int flags, CancellationSignal cancel, AuthenticationCallback callback, Handler handler);
-    }
-
-    private static class LegacyFingerprintManagerCompatImpl implements FingerprintManagerCompatImpl {
-
-        public LegacyFingerprintManagerCompatImpl() {
-        }
-
-        @Override
-        public boolean hasEnrolledFingerprints(Context context) {
-            return false;
-        }
-
-        @Override
-        public boolean isHardwareDetected(Context context) {
-            return false;
-        }
-
-        @Override
-        public void authenticate(Context context, CryptoObject crypto, int flags, CancellationSignal cancel, AuthenticationCallback callback, Handler handler) {
-        }
     }
 
     private static class Api23FingerprintManagerCompatImpl implements FingerprintManagerCompatImpl {

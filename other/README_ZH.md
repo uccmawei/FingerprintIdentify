@@ -10,7 +10,7 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
 **1. Gradle 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.3'
+    compile 'com.wei.android.lib:fingerprintidentify:1.1.4'
 
 **2. AndroidManifest 添加权限**
 
@@ -61,6 +61,8 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 https://code.google.com/p/android/issues/detail?id=231939
 
 **7. 更新记录**
+
+**v1.1.4**　`2017.05.24`　移除安卓6.0的版本限制，添加魅族设备验证，因为 [ISSUE#12](https://github.com/uccmawei/FingerprintIdentify/issues/12)
 
 **v1.1.3**　`2017.05.22`　更新方法 getFingerprintManager，因为 [ISSUE#11](https://github.com/uccmawei/FingerprintIdentify/issues/11)
 
