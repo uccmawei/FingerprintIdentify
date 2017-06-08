@@ -2,7 +2,7 @@
 
 This is an expandable Android fingerprint api compatible lib, which also combine [Samsung](http://developer.samsung.com/galaxy/pass#) and [MeiZu](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)'s official fingerprint api.
 
-Samsung and MeiZu's fingerprint SDK supports most devices which system versions less than Android 6.0 .
+**Notice! No version limit! There is no android version's limit to this lib!**
 
 Api priority level：Android > Samsung > MeiZu
 
@@ -60,7 +60,14 @@ Api priority level：Android > Samsung > MeiZu
 
 **6. Notice**
 
-https://code.google.com/p/android/issues/detail?id=231939
+    1. About 'com.android.support:appcompat-v7:25.3.1' version
+       The class FingerprintManagerCompatApi23 will check the feature FEATURE_FINGERPRINT from version 25.
+       More info：https://code.google.com/p/android/issues/detail?id=231939
+
+    2. Some manufacturers will transplant standard fingerprint API to the device
+       which version less than Android M, such as OPPO.
+
+    3. We need to check the manufacturers because Meizu's sdk can run on some other device sometimes.
 
 **7. Version Update**
 

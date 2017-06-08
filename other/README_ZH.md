@@ -1,8 +1,8 @@
 # FingerprintIdentify
 
-这是一个可拓展的Android指纹识别API兼容库，目前集成了 安卓原生API 以及 [三星](http://developer.samsung.com/galaxy/pass#) 和 [魅族](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI) 的指纹SDK。
+这是一个可拓展的Android指纹识别API兼容库，目前集成了 安卓标准API 以及 [三星](http://developer.samsung.com/galaxy/pass#) 和 [魅族](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI) 的指纹SDK。
 
-三星和魅族的指纹SDK支持大部分系统低于安卓6.0的设备。
+重点！重点！重点！本库对安卓系统版本没有任何限制！安卓6.0以下的系统也能正常使用！
 
 API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
@@ -58,7 +58,13 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
 **6. 相关资料**
 
-https://code.google.com/p/android/issues/detail?id=231939
+    1. 关于 'com.android.support:appcompat-v7:25.3.1' 版本问题
+       从25版本开始 FingerprintManagerCompatApi23 类需要检查 FEATURE_FINGERPRINT 特性。
+       具体可以参考：https://code.google.com/p/android/issues/detail?id=231939
+
+    2. 国内个别手机产商会移植安卓6.0的标准指纹API到6.0以下的系统中使用，比如OPPO。
+
+    3. 由于魅族指纹SDK可能会在某些系统上可以运行，所以需要加个设备判断。
 
 **7. 更新记录**
 
