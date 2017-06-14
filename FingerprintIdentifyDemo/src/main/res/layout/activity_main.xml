@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="10dp">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="release"
-        android:text="Release Fingerprint"
-        android:textSize="13sp"/>
+              android:padding="16dp">
 
     <TextView
         android:id="@+id/mTvTips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:lineSpacingExtra="8dp"
-        android:paddingLeft="4dp"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        tools:text="德玛西亚"/>
 
 </LinearLayout>

@@ -1,6 +1,6 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -34,8 +34,8 @@ public class MeiZuFingerprint extends BaseFingerprint {
 
     private FingerprintManager mMeiZuFingerprintManager;
 
-    public MeiZuFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
-        super(activity, exceptionListener);
+    public MeiZuFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+        super(context, exceptionListener);
 
         try {
             mMeiZuFingerprintManager = FingerprintManager.open();

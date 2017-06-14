@@ -12,7 +12,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.4'
+    compile 'com.wei.android.lib:fingerprintidentify:1.1.5'
 
 **2. AndroidManifest**
 
@@ -70,6 +70,8 @@ Api priority level：Android > Samsung > MeiZu
     3. We need to check the manufacturers because Meizu's sdk can run on some other device sometimes.
 
 **7. Version Update**
+
+**v1.1.5**　`2017.06.14`　~~FingerprintIdentify(Activity)~~ --> FingerprintIdentify(Context).
 
 **v1.1.4**　`2017.05.24`　Remove android M limit, add MeiZu manufacturer verify. See [ISSUE#12](https://github.com/uccmawei/FingerprintIdentify/issues/12)
 

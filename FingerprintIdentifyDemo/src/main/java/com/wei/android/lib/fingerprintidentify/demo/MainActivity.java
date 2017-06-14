@@ -2,17 +2,13 @@ package com.wei.android.lib.fingerprintidentify.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
-import com.wei.android.lib.fingerprintidentify.FingerprintIdentify;
 import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTvTips;
-    private boolean mIsCalledStartIdentify = false;
-    private FingerprintIdentify mFingerprintIdentify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,52 +16,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTvTips = (TextView) findViewById(R.id.mTvTips);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+        mTvTips.setText(App.sStringBuilder.toString());
 
-        if (mIsCalledStartIdentify) {
-            mTvTips.append("\nresume identify if needed");
-            mFingerprintIdentify.resumeIdentify();
+        if (!App.sFingerprintIdentify.isFingerprintEnable()) {
+            mTvTips.append(getString(R.string.not_support));
             return;
         }
 
-        mIsCalledStartIdentify = true;
-        mFingerprintIdentify = new FingerprintIdentify(this, new BaseFingerprint.FingerprintIdentifyExceptionListener() {
-            @Override
-            public void onCatchException(Throwable exception) {
-                mTvTips.append("\n" + exception.getLocalizedMessage());
-            }
-        });
-
-        mTvTips.append("create fingerprintIdentify");
-        mTvTips.append("\nisHardwareEnable: " + mFingerprintIdentify.isHardwareEnable());
-        mTvTips.append("\nisRegisteredFingerprint: " + mFingerprintIdentify.isRegisteredFingerprint());
-        mTvTips.append("\nisFingerprintEnable: " + mFingerprintIdentify.isFingerprintEnable());
-
-        if (!mFingerprintIdentify.isFingerprintEnable()) {
-            mTvTips.append("\nSorry →_→");
-            return;
-        }
-
-        mTvTips.append("\nstart identify\nput your finger on the sensor");
-        mFingerprintIdentify.resumeIdentify();
-        mFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
+        mTvTips.append(getString(R.string.start));
+        App.sFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
             @Override
             public void onSucceed() {
-                mTvTips.append("\nonSucceed");
+                mTvTips.append(getString(R.string.succeed));
             }
 
             @Override
             public void onNotMatch(int availableTimes) {
-                mTvTips.append("\nonNotMatch, " + availableTimes + " chances left");
+                mTvTips.append(getString(R.string.not_match, availableTimes));
             }
 
             @Override
             public void onFailed() {
-                mTvTips.append("\nonFailed");
+                mTvTips.append(getString(R.string.failed));
             }
         });
     }
@@ -73,13 +46,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        mTvTips.append("\nrelease");
-        mFingerprintIdentify.cancelIdentify();
+        App.sFingerprintIdentify.cancelIdentify();
     }
 
-    public void release(View view) {
-        mTvTips.append("\nrelease by click");
-        mFingerprintIdentify.cancelIdentify();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.sFingerprintIdentify.cancelIdentify();
     }
 }

@@ -1,6 +1,6 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
-import android.app.Activity;
+import android.content.Context;
 
 import com.samsung.android.sdk.pass.Spass;
 import com.samsung.android.sdk.pass.SpassFingerprint;
@@ -34,13 +34,13 @@ public class SamsungFingerprint extends BaseFingerprint {
     private int mResultCode = -1;
     private SpassFingerprint mSpassFingerprint;
 
-    public SamsungFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
-        super(activity, exceptionListener);
+    public SamsungFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+        super(context, exceptionListener);
 
         try {
             Spass spass = new Spass();
-            spass.initialize(mActivity);
-            mSpassFingerprint = new SpassFingerprint(activity);
+            spass.initialize(mContext);
+            mSpassFingerprint = new SpassFingerprint(mContext);
             setHardwareEnable(spass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT));
             setRegisteredFingerprint(mSpassFingerprint.hasRegisteredFinger());
         } catch (Throwable e) {
@@ -50,7 +50,7 @@ public class SamsungFingerprint extends BaseFingerprint {
 
     @Override
     protected void doIdentify() {
-        mActivity.runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -102,7 +102,7 @@ public class SamsungFingerprint extends BaseFingerprint {
 
     @Override
     protected void doCancelIdentify() {
-        mActivity.runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {

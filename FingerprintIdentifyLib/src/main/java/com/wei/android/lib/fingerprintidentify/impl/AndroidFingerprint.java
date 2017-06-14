@@ -1,6 +1,6 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v4.os.CancellationSignal;
 
 import com.wei.android.lib.fingerprintidentify.aosp.FingerprintManagerCompat;
@@ -34,11 +34,11 @@ public class AndroidFingerprint extends BaseFingerprint {
     private CancellationSignal mCancellationSignal;
     private FingerprintManagerCompat mFingerprintManagerCompat;
 
-    public AndroidFingerprint(Activity activity, FingerprintIdentifyExceptionListener exceptionListener) {
-        super(activity, exceptionListener);
+    public AndroidFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+        super(context, exceptionListener);
 
         try {
-            mFingerprintManagerCompat = FingerprintManagerCompat.from(activity);
+            mFingerprintManagerCompat = FingerprintManagerCompat.from(mContext);
             setHardwareEnable(mFingerprintManagerCompat.isHardwareDetected());
             setRegisteredFingerprint(mFingerprintManagerCompat.hasEnrolledFingerprints());
         } catch (Throwable e) {
