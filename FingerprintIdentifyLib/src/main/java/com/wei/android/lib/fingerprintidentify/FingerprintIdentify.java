@@ -31,7 +31,6 @@ import com.wei.android.lib.fingerprintidentify.impl.SamsungFingerprint;
  * <p>
  * Created by Awei on 2017/2/8.
  */
-
 public class FingerprintIdentify {
 
     private BaseFingerprint mFingerprint;

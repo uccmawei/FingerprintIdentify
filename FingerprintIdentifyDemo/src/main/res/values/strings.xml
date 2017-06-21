@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">指纹识别 Demo</string>
-    <string name="time">\n耗时:</string>
-    <string name="not_support">\n条件不满足，结束</string>
-    <string name="start">\n开始验证，请放置你的指纹</string>
-    <string name="succeed">\n验证通过，结束</string>
-    <string name="not_match">\n指纹不匹配，剩余 %1d 次机会</string>
-    <string name="failed">\n验证失败，结束</string>
+    <string name="time">耗时:</string>
+    <string name="not_support">条件不满足，结束</string>
+    <string name="start">开始验证，请放置你的指纹</string>
+    <string name="succeed">验证通过，结束</string>
+    <string name="not_match">指纹不匹配，剩余 %1d 次机会</string>
+    <string name="failed">验证失败，结束</string>
 
 </resources>

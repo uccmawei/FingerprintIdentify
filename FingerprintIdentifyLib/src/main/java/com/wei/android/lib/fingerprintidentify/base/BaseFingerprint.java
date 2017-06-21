@@ -30,6 +30,7 @@ import android.os.Looper;
 public abstract class BaseFingerprint {
 
     protected Context mContext;
+
     private Handler mHandler;
     private FingerprintIdentifyListener mIdentifyListener;
     private FingerprintIdentifyExceptionListener mExceptionListener;

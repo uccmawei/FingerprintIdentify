@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">FingerprintIdentify Demo</string>
-    <string name="time">\ntime cost:</string>
-    <string name="not_support">\nConditions are not satisfied, end</string>
-    <string name="start">\nverification begins, show your fingerprint</string>
-    <string name="succeed">\nsucceed, end</string>
-    <string name="not_match">\nno match, %1d chances left</string>
-    <string name="failed">\nfailed, end</string>
+    <string name="time">time cost:</string>
+    <string name="not_support">Conditions are not satisfied, end</string>
+    <string name="start">verification begins, show your fingerprint</string>
+    <string name="succeed">succeed, end</string>
+    <string name="not_match">no match, %1d chances left</string>
+    <string name="failed">failed, end</string>
 
 </resources>

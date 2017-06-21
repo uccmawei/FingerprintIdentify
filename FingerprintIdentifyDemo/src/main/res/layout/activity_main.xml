@@ -4,14 +4,21 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="16dp">
+              android:padding="14dp">
 
-    <TextView
-        android:id="@+id/mTvTips"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="8dp"
-        android:textSize="14sp"
-        tools:text="德玛西亚"/>
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <TextView
+            android:id="@+id/mTvTips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="12dp"
+            android:textSize="14sp"
+            tools:text="德玛西亚"/>
+
+    </ScrollView>
 
 </LinearLayout>
