@@ -1,6 +1,7 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.os.CancellationSignal;
 
 import com.wei.android.lib.fingerprintidentify.aosp.FingerprintManagerCompat;
@@ -37,6 +38,10 @@ public class AndroidFingerprint extends BaseFingerprint {
     public AndroidFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
         super(context, exceptionListener);
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return;
+        }
+
         try {
             mFingerprintManagerCompat = FingerprintManagerCompat.from(mContext);
             setHardwareEnable(mFingerprintManagerCompat.isHardwareDetected());
@@ -66,12 +71,12 @@ public class AndroidFingerprint extends BaseFingerprint {
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
-                    onFailed();
+                    onFailed(errMsgId == 7); // FingerprintManager.FINGERPRINT_ERROR_LOCKOUT
                 }
             }, null);
         } catch (Throwable e) {
             onCatchException(e);
-            onFailed();
+            onFailed(false);
         }
     }
 

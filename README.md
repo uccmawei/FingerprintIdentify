@@ -1,18 +1,22 @@
 # FingerprintIdentify
 
-This is an expandable Android fingerprint api compatible lib, which also combine [Samsung](http://developer.samsung.com/galaxy/pass#) and [MeiZu](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)'s official fingerprint api.
+This is an expandable Android fingerprint api compatible lib, which also combine these api:
 
-**Notice! No version limit! There is no android version's limit to this lib!**
+Android API：minimum support for Android **6.0** [(more detail)](https://developer.android.com/reference/android/support/v4/hardware/fingerprint/FingerprintManagerCompat.html)
+
+SamSung SDK：minimum support for Android **4.2** [(more detail)](http://developer.samsung.com/galaxy/pass#)
+
+MeiZu SDK：minimum support for Android **5.1** [(more detail)](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)
 
 Api priority level：Android > Samsung > MeiZu
 
-[![](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/QRCode_en.png)](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/demo.apk)
+[中文版介绍 -- 传送门](https://github.com/uccmawei/FingerprintIdentify/blob/master/other/README_ZH.md)
 
-[中文版](https://github.com/uccmawei/FingerprintIdentify/blob/master/other/README_ZH.md)
+[![](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/QRCode_en.png)](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/demo.apk)
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.5'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.0'
 
 **2. AndroidManifest**
 
@@ -23,7 +27,7 @@ Api priority level：Android > Samsung > MeiZu
 **3. FingerprintIdentify api**
 
     mFingerprintIdentify = new FingerprintIdentify(this);                       // create object
-    mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // create with error listener
+    mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // exception callback for develop only
     mFingerprintIdentify.isFingerprintEnable();                                 // is fingerprint usable
     mFingerprintIdentify.isHardwareEnable();                                    // is hardware usable
     mFingerprintIdentify.isRegisteredFingerprint();                             // is fingerprint collected
@@ -45,8 +49,9 @@ Api priority level：Android > Samsung > MeiZu
         }
 
         @Override
-        public void onFailed() {
+        public void onFailed(boolean isDeviceLocked) {
             // failed, release hardware automatically
+            // isDeviceLocked: is device locked temporarily
         }
     });
 
@@ -60,16 +65,25 @@ Api priority level：Android > Samsung > MeiZu
 
 **6. Notice**
 
-    1. About 'com.android.support:appcompat-v7:25.3.1' version
+    1. Usually, device will be locked temporarily when read incorrect fingerprints continuously 5 times.
+       And it need to takes about 30 seconds to get back to normal.
+       But it's not standardized, MeiZu SDK has no limit to this.
+
+    2. About 'com.android.support:appcompat-v7:25.3.1' version
        The class FingerprintManagerCompatApi23 will check the feature FEATURE_FINGERPRINT from version 25.
        More info：https://code.google.com/p/android/issues/detail?id=231939
 
-    2. Some manufacturers will transplant standard fingerprint API to the device
+    3. Some manufacturers will transplant standard fingerprint API to the device
        which version less than Android M, such as OPPO.
+       But the API will be modified sometimes and cause calling crash, such as VIVO.
 
-    3. We need to check the manufacturers because Meizu's sdk can run on some other device sometimes.
+    4. We need to check the manufacturers because Meizu's sdk is available on some other devices.
+
+    5. MeiZu's SDK runs abnormally on MeiLan Note3 sometimes, it can't switch to mback mode event called release。
 
 **7. Version Update**
+
+**v1.2.0**　`2017.07.10`　Add android M limit. Add new callback parameter to notice is that device locked temporarily。
 
 **v1.1.5**　`2017.06.14`　~~FingerprintIdentify(Activity)~~ --> FingerprintIdentify(Context).
 

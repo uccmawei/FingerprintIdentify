@@ -37,10 +37,12 @@ public abstract class BaseFingerprint {
 
     private int mNumberOfFailures = 0;                      // number of failures
     private int mMaxAvailableTimes = 3;                     // the most available times
+
     private boolean mIsHardwareEnable = false;              // if the phone equipped fingerprint hardware
     private boolean mIsRegisteredFingerprint = false;       // if the phone has any fingerprints
-    private boolean mIsCanceledIdentify = false;            // if canceled identify
+
     private boolean mIsCalledStartIdentify = false;         // if started identify
+    private boolean mIsCanceledIdentify = false;            // if canceled identify
 
     public BaseFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
         mContext = context;
@@ -103,10 +105,11 @@ public abstract class BaseFingerprint {
 
         if (++mNumberOfFailures < mMaxAvailableTimes) {
             if (mIdentifyListener != null) {
+                final int chancesLeft = mMaxAvailableTimes - mNumberOfFailures;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mIdentifyListener.onNotMatch(mMaxAvailableTimes - mNumberOfFailures);
+                        mIdentifyListener.onNotMatch(chancesLeft);
                     }
                 });
             }
@@ -118,10 +121,10 @@ public abstract class BaseFingerprint {
             return;
         }
 
-        onFailed();
+        onFailed(false);
     }
 
-    protected void onFailed() {
+    protected void onFailed(final boolean isDeviceLocked) {
         if (mIsCanceledIdentify) {
             return;
         }
@@ -132,7 +135,7 @@ public abstract class BaseFingerprint {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mIdentifyListener.onFailed();
+                    mIdentifyListener.onFailed(isDeviceLocked);
                 }
             });
         }
@@ -181,7 +184,7 @@ public abstract class BaseFingerprint {
 
         void onNotMatch(int availableTimes);
 
-        void onFailed();
+        void onFailed(boolean isDeviceLocked);
     }
 
     public interface FingerprintIdentifyExceptionListener {

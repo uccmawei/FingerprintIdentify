@@ -1,16 +1,20 @@
 # FingerprintIdentify
 
-这是一个可拓展的Android指纹识别API兼容库，目前集成了 安卓标准API 以及 [三星](http://developer.samsung.com/galaxy/pass#) 和 [魅族](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI) 的指纹SDK。
+这是一个可拓展的Android指纹识别API兼容库，目前集成了以下API：
 
-重点！重点！重点！本库对安卓系统版本没有任何限制！安卓6.0以下的系统也能正常使用！
+安卓API：最低支持安卓**6.0**系统 [(查看详细介绍)](https://developer.android.com/reference/android/support/v4/hardware/fingerprint/FingerprintManagerCompat.html)
 
-API调用优先级：安卓原生 > 三星SDK > 魅族SDK
+三星SDK：最低支持安卓**4.2**系统 [(查看详细介绍)](http://developer.samsung.com/galaxy/pass#)
+
+魅族SDK：最低支持安卓**5.1**系统 [(查看详细介绍)](http://open-wiki.flyme.cn/index.php?title=%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%ABAPI)
+
+API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 [![](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/QRCode_zh.png)](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/demo.apk)
 
 **1. Gradle 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.1.5'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.0'
 
 **2. AndroidManifest 添加权限**
 
@@ -21,7 +25,7 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 **3. FingerprintIdentify 方法解释**
 
     mFingerprintIdentify = new FingerprintIdentify(this);                       // 构造对象
-    mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // 构造对象，并监听错误回调
+    mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // 构造对象，并监听错误回调（错误仅供开发使用）
     mFingerprintIdentify.isFingerprintEnable();                                 // 指纹硬件可用并已经录入指纹
     mFingerprintIdentify.isHardwareEnable();                                    // 指纹硬件是否可用
     mFingerprintIdentify.isRegisteredFingerprint();                             // 是否已经录入指纹
@@ -43,8 +47,9 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
         }
 
         @Override
-        public void onFailed() {
+        public void onFailed(boolean isDeviceLocked) {
             // 错误次数达到上限或者API报错停止了验证，自动结束指纹识别
+            // isDeviceLocked 表示指纹硬件是否被暂时锁定
         }
     });
 
@@ -58,15 +63,23 @@ API调用优先级：安卓原生 > 三星SDK > 魅族SDK
 
 **6. 相关资料**
 
-    1. 关于 'com.android.support:appcompat-v7:25.3.1' 版本问题
+    1. 通常指纹硬件在连续识别错误5次后，就会暂时锁定硬件，需要等30s左右才能再次恢复使用。
+       这个因设备而异，比如魅族的SDK就完全没有次数限制。
+
+    2. 关于 'com.android.support:appcompat-v7:25.3.1' 版本问题
        从25版本开始 FingerprintManagerCompatApi23 类需要检查 FEATURE_FINGERPRINT 特性。
        具体可以参考：https://code.google.com/p/android/issues/detail?id=231939
 
-    2. 国内个别手机产商会移植安卓6.0的标准指纹API到6.0以下的系统中使用，比如OPPO。
+    3. 国内个别手机产商会移植安卓6.0的标准指纹API到6.0以下的系统中使用，比如OPPO。
+       但是移植后的API存在被修改的可能，可能会导致程序奔溃，比如VIVO。
 
-    3. 由于魅族指纹SDK可能会在某些系统上可以运行，所以需要加个设备判断。
+    4. 由于魅族指纹SDK可能会在某些系统上可以正常调用部分API，所以需要加个设备判断。
+
+    5. 魅族的指纹SDK在魅蓝NOTE3上也可能出现功能异常，比如调用release后也不能恢复mback模式。
 
 **7. 更新记录**
+
+**v1.2.0**　`2017.07.10`　恢复安卓6.0的版本限制；新增连续多次识别错误导致设备指纹功能暂时锁定回调参数。
 
 **v1.1.5**　`2017.06.14`　~~FingerprintIdentify(Activity)~~ --> FingerprintIdentify(Context).
 

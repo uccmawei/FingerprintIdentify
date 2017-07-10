@@ -68,7 +68,7 @@ public class MeiZuFingerprint extends BaseFingerprint {
             }, mMeiZuFingerprintManager.getIds());
         } catch (Throwable e) {
             onCatchException(e);
-            onFailed();
+            onFailed(false);
         }
     }
 

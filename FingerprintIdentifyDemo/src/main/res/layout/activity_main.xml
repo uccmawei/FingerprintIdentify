@@ -4,11 +4,35 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="14dp">
+              android:paddingLeft="14dp"
+              android:paddingRight="14dp"
+              android:paddingTop="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="start"
+            android:text="@string/btn_start"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:onClick="copy"
+            android:text="@string/btn_copy"/>
+
+    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/mScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:scrollbars="none">
 
         <TextView
