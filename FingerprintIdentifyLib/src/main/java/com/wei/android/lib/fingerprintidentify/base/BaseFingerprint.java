@@ -129,13 +129,19 @@ public abstract class BaseFingerprint {
             return;
         }
 
+        final boolean isStartFailedByDeviceLocked = isDeviceLocked && mNumberOfFailures == 0;
+
         mNumberOfFailures = mMaxAvailableTimes;
 
         if (mIdentifyListener != null) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mIdentifyListener.onFailed(isDeviceLocked);
+                    if (isStartFailedByDeviceLocked) {
+                        mIdentifyListener.onStartFailedByDeviceLocked();
+                    } else {
+                        mIdentifyListener.onFailed(isDeviceLocked);
+                    }
                 }
             });
         }
@@ -185,6 +191,8 @@ public abstract class BaseFingerprint {
         void onNotMatch(int availableTimes);
 
         void onFailed(boolean isDeviceLocked);
+
+        void onStartFailedByDeviceLocked();
     }
 
     public interface FingerprintIdentifyExceptionListener {

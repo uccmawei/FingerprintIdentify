@@ -8,6 +8,7 @@
     <string name="succeed">succeed, end</string>
     <string name="not_match">no match, %1d chances left</string>
     <string name="failed">failed, end, is device locked</string>
+    <string name="start_failed">start failed，device locked</string>
 
     <string name="click_to_start">click start button to active identify</string>
     <string name="btn_start">start</string>

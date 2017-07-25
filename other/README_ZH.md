@@ -14,7 +14,7 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 **1. Gradle 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.0'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.1'
 
 **2. AndroidManifest 添加权限**
 
@@ -51,6 +51,11 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
             // 错误次数达到上限或者API报错停止了验证，自动结束指纹识别
             // isDeviceLocked 表示指纹硬件是否被暂时锁定
         }
+
+        @Override
+        public void onStartFailedByDeviceLocked() {
+            // 第一次调用startIdentify失败，因为设备被暂时锁定
+        }
     });
 
 **5. 混淆设置**
@@ -78,6 +83,8 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
     5. 魅族的指纹SDK在魅蓝NOTE3上也可能出现功能异常，比如调用release后也不能恢复mback模式。
 
 **7. 更新记录**
+
+**v1.2.1**　`2017.07.25`　新增回调接口：设备被暂时锁定后，初次调用startIdentify会回调此接口。
 
 **v1.2.0**　`2017.07.10`　恢复安卓6.0的版本限制；新增连续多次识别错误导致设备指纹功能暂时锁定回调参数。
 

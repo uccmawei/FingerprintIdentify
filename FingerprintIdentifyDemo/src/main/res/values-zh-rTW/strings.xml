@@ -8,6 +8,7 @@
     <string name="succeed">驗證通過，結束</string>
     <string name="not_match">指紋不匹配，剩餘 %1d 次機會</string>
     <string name="failed">驗證失敗，結束，是設備鎖定</string>
+    <string name="start_failed">開始失敗，設備暫時鎖定</string>
 
     <string name="click_to_start">請點擊開始驗證按鈕開始</string>
     <string name="btn_start">開始驗證</string>

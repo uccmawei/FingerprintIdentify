@@ -16,7 +16,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.0'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.1'
 
 **2. AndroidManifest**
 
@@ -53,6 +53,11 @@ Api priority level：Android > Samsung > MeiZu
             // failed, release hardware automatically
             // isDeviceLocked: is device locked temporarily
         }
+
+        @Override
+        public void onStartFailedByDeviceLocked() {
+            // the first start failed because the device was locked temporarily
+        }
     });
 
 **5. Proguard**
@@ -82,6 +87,8 @@ Api priority level：Android > Samsung > MeiZu
     5. MeiZu's SDK runs abnormally on MeiLan Note3 sometimes, it can't switch to mback mode event called release。
 
 **7. Version Update**
+
+**v1.2.1**　`2017.07.25`　Add new callback onStartFailedByDeviceLocked：The first start failed because the device was locked temporarily.
 
 **v1.2.0**　`2017.07.10`　Add android M limit. Add new callback parameter to notice is that device locked temporarily。
 

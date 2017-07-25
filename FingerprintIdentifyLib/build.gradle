@@ -40,7 +40,7 @@ publish {
     userOrg = 'uccmawei'
     groupId = 'com.wei.android.lib'
     artifactId = 'fingerprintidentify'
-    publishVersion = '1.2.0'
+    publishVersion = '1.2.1'
     desc = 'Android fingerprint api for Android, Samsung, MeiZu'
     website = 'https://github.com/uccmawei/FingerprintIdentify'
 }

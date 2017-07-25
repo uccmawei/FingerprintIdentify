@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
             public void onFailed(boolean isDeviceLocked) {
                 append("\n" + getString(R.string.failed) + " " + isDeviceLocked);
             }
+
+            @Override
+            public void onStartFailedByDeviceLocked() {
+                append("\n" + getString(R.string.start_failed));
+            }
         });
     }
 
