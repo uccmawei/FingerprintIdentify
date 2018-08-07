@@ -71,7 +71,9 @@ public class AndroidFingerprint extends BaseFingerprint {
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
-                    onFailed(errMsgId == 7); // FingerprintManager.FINGERPRINT_ERROR_LOCKOUT
+                    // 7 - FingerprintManager.FINGERPRINT_ERROR_LOCKOUT
+                    // 9 - FingerprintManager.FINGERPRINT_ERROR_LOCKOUT_PERMANENT (API-27)
+                    onFailed(errMsgId == 7 || errMsgId == 9);
                 }
             }, null);
         } catch (Throwable e) {
