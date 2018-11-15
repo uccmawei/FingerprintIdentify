@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FingerprintIdentify Demo</string>
+    <string name="time">time cost:</string>
+    <string name="not_support">Conditions are not satisfied, end</string>
+    <string name="start">verification begins, show your fingerprint</string>
+    <string name="succeed">succeed, end</string>
+    <string name="not_match">no match, %1d chances left</string>
+    <string name="failed">failed, end, is device locked</string>
+    <string name="start_failed">start failed，device locked</string>
+
+    <string name="click_to_start">click start button to active identify</string>
+    <string name="btn_start">start</string>
+    <string name="btn_copy">copy</string>
+    <string name="copied">copied</string>
+    <string name="stopped_by_life_callback">identify cancelled，please restart the app</string>
+
+</resources>

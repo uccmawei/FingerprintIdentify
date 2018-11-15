@@ -2,10 +2,11 @@ package com.wei.android.lib.fingerprintidentify.impl;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.os.CancellationSignal;
 
 import com.wei.android.lib.fingerprintidentify.aosp.FingerprintManagerCompat;
 import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint;
+
+import androidx.core.os.CancellationSignal;
 
 /**
  * Copyright (c) 2017 Awei
@@ -35,11 +36,13 @@ public class AndroidFingerprint extends BaseFingerprint {
     private CancellationSignal mCancellationSignal;
     private FingerprintManagerCompat mFingerprintManagerCompat;
 
-    public AndroidFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+    public AndroidFingerprint(Context context, ExceptionListener exceptionListener, boolean iSupportAndroidL) {
         super(context, exceptionListener);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return;
+        if (!iSupportAndroidL) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return;
+            }
         }
 
         try {

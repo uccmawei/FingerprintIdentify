@@ -1,1 +1,1 @@
-include ':FingerprintIdentifyLib', ':FingerprintIdentifyDemo'
+include ':app', ':FingerprintIdentifyLib'

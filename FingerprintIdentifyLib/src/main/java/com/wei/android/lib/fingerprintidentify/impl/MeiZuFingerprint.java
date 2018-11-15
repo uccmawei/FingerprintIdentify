@@ -34,7 +34,7 @@ public class MeiZuFingerprint extends BaseFingerprint {
 
     private FingerprintManager mMeiZuFingerprintManager;
 
-    public MeiZuFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+    public MeiZuFingerprint(Context context, ExceptionListener exceptionListener) {
         super(context, exceptionListener);
 
         try {

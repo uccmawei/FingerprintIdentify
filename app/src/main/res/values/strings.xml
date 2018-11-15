@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">指纹识别 Demo</string>
+    <string name="time">耗时:</string>
+    <string name="not_support">条件不满足，结束</string>
+    <string name="start">开始验证，请放置你的指纹</string>
+    <string name="succeed">验证通过，结束</string>
+    <string name="not_match">指纹不匹配，剩余 %1d 次机会</string>
+    <string name="failed">验证失败，结束，是设备锁定</string>
+    <string name="start_failed">开始失败，设备暂时锁定</string>
+
+    <string name="click_to_start">请点击开始验证按钮开始</string>
+    <string name="btn_start">开始验证</string>
+    <string name="btn_copy">复制信息</string>
+    <string name="copied">已复制</string>
+    <string name="stopped_by_life_callback">指纹验证已停止，请重新打开APP再试</string>
+
+</resources>

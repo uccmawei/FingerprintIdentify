@@ -16,7 +16,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.1'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.3'
 
 **2. AndroidManifest**
 
@@ -26,18 +26,21 @@ Api priority level：Android > Samsung > MeiZu
 
 **3. FingerprintIdentify api**
 
-    mFingerprintIdentify = new FingerprintIdentify(this);                       // create object
-    mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // exception callback for develop only
-    mFingerprintIdentify.isFingerprintEnable();                                 // is fingerprint usable
-    mFingerprintIdentify.isHardwareEnable();                                    // is hardware usable
-    mFingerprintIdentify.isRegisteredFingerprint();                             // is fingerprint collected
-    mFingerprintIdentify.startIdentify(maxTimes, listener);                     // start identify
-    mFingerprintIdentify.cancelIdentify();                                      // cancel identify
-    mFingerprintIdentify.resumeIdentify();                                      // resume identify
+    mFingerprintIdentify = new FingerprintIdentify(this);       // create object
+    mFingerprintIdentify.setSupportAndroidL(true);              // support android L
+    mFingerprintIdentify.setExceptionListener(listener);        // exception callback for develop
+    mFingerprintIdentify.init();                                // init
+
+    mFingerprintIdentify.isFingerprintEnable();                 // is fingerprint usable
+    mFingerprintIdentify.isHardwareEnable();                    // is hardware usable
+    mFingerprintIdentify.isRegisteredFingerprint();             // is fingerprint collected
+    mFingerprintIdentify.startIdentify(maxTimes, listener);     // start identify
+    mFingerprintIdentify.cancelIdentify();                      // cancel identify
+    mFingerprintIdentify.resumeIdentify();                      // resume identify
 
 **4. startIdentify method**
 
-    mFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
+    mFingerprintIdentify.startIdentify(3, new BaseFingerprint.IdentifyListener() {
         @Override
         public void onSucceed() {
             // succeed, release hardware automatically
@@ -61,6 +64,8 @@ Api priority level：Android > Samsung > MeiZu
     });
 
 **5. Proguard**
+
+    -ignorewarnings
 
     # MeiZuFingerprint
     -keep class com.fingerprints.service.** { *; }
@@ -87,6 +92,8 @@ Api priority level：Android > Samsung > MeiZu
     5. MeiZu's SDK runs abnormally on MeiLan Note3 sometimes, it can't switch to mback mode event called release。
 
 **7. Version Update**
+
+**v1.2.3**　`2018.11.15`　Migrate to AndroidX. Support Android L. Support custom identify implementation.
 
 **v1.2.1**　`2017.07.25`　Add new callback onStartFailedByDeviceLocked：The first start failed because the device was locked temporarily.
 

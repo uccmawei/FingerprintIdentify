@@ -19,16 +19,18 @@ package com.wei.android.lib.fingerprintidentify.aosp;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.CancellationSignal;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
 
 import java.security.Signature;
 
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 @RequiresApi(23)
 @TargetApi(23)
@@ -52,7 +54,7 @@ public final class FingerprintManagerCompatApi23 {
     public static void authenticate(Context context, CryptoObject crypto, int flags, Object cancel, AuthenticationCallback callback, Handler handler) {
         final FingerprintManager fp = getFingerprintManagerOrNull(context);
         if (fp != null) {
-            fp.authenticate(wrapCryptoObject(crypto), (android.os.CancellationSignal) cancel, flags, wrapCallback(callback), handler);
+            fp.authenticate(wrapCryptoObject(crypto), (CancellationSignal) cancel, flags, wrapCallback(callback), handler);
         }
     }
 

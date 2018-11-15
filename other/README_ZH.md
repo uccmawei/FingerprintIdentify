@@ -14,7 +14,7 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 **1. Gradle 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.1'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.3'
 
 **2. AndroidManifest 添加权限**
 
@@ -24,18 +24,21 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 **3. FingerprintIdentify 方法解释**
 
-    mFingerprintIdentify = new FingerprintIdentify(this);                       // 构造对象
-    mFingerprintIdentify = new FingerprintIdentify(this, exceptionListener);    // 构造对象，并监听错误回调（错误仅供开发使用）
-    mFingerprintIdentify.isFingerprintEnable();                                 // 指纹硬件可用并已经录入指纹
-    mFingerprintIdentify.isHardwareEnable();                                    // 指纹硬件是否可用
-    mFingerprintIdentify.isRegisteredFingerprint();                             // 是否已经录入指纹
-    mFingerprintIdentify.startIdentify(maxTimes, listener);                     // 开始验证指纹识别
-    mFingerprintIdentify.cancelIdentify();                                      // 关闭指纹识别
-    mFingerprintIdentify.resumeIdentify();                                      // 恢复指纹识别并保证错误次数不变
+    mFingerprintIdentify = new FingerprintIdentify(this);       // 构造对象
+    mFingerprintIdentify.setSupportAndroidL(true);              // 支持安卓L及以下系统
+    mFingerprintIdentify.setExceptionListener(listener);        // 错误回调（错误仅供开发使用）
+    mFingerprintIdentify.init();                                // 初始化，必须调用
+
+    mFingerprintIdentify.isFingerprintEnable();                 // 指纹硬件可用并已经录入指纹
+    mFingerprintIdentify.isHardwareEnable();                    // 指纹硬件是否可用
+    mFingerprintIdentify.isRegisteredFingerprint();             // 是否已经录入指纹
+    mFingerprintIdentify.startIdentify(maxTimes, listener);     // 开始验证指纹识别
+    mFingerprintIdentify.cancelIdentify();                      // 关闭指纹识别
+    mFingerprintIdentify.resumeIdentify();                      // 恢复指纹识别并保证错误次数不变
 
 **4. startIdentify 方法解析**
 
-    mFingerprintIdentify.startIdentify(3, new BaseFingerprint.FingerprintIdentifyListener() {
+    mFingerprintIdentify.startIdentify(3, new BaseFingerprint.IdentifyListener() {
         @Override
         public void onSucceed() {
             // 验证成功，自动结束指纹识别
@@ -60,6 +63,8 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 **5. 混淆设置**
 
+    -ignorewarnings
+
     # MeiZuFingerprint
     -keep class com.fingerprints.service.** { *; }
     
@@ -83,6 +88,8 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
     5. 魅族的指纹SDK在魅蓝NOTE3上也可能出现功能异常，比如调用release后也不能恢复mback模式。
 
 **7. 更新记录**
+
+**v1.2.3**　`2018.11.15`　适配AndroidX。支持AndroidL及以下系统。支持自定义实现指纹识别。
 
 **v1.2.1**　`2017.07.25`　新增回调接口：设备被暂时锁定后，初次调用startIdentify会回调此接口。
 

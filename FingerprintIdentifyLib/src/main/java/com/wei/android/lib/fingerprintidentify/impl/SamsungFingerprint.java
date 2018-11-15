@@ -35,7 +35,7 @@ public class SamsungFingerprint extends BaseFingerprint {
     private int mResultCode = -1;
     private SpassFingerprint mSpassFingerprint;
 
-    public SamsungFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+    public SamsungFingerprint(Context context, ExceptionListener exceptionListener) {
         super(context, exceptionListener);
 
         try {

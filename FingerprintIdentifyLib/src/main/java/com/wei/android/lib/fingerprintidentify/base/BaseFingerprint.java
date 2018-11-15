@@ -32,8 +32,8 @@ public abstract class BaseFingerprint {
     protected Context mContext;
 
     private Handler mHandler;
-    private FingerprintIdentifyListener mIdentifyListener;
-    private FingerprintIdentifyExceptionListener mExceptionListener;
+    private IdentifyListener mIdentifyListener;
+    private ExceptionListener mExceptionListener;
 
     private int mNumberOfFailures = 0;                      // number of failures
     private int mMaxAvailableTimes = 3;                     // the most available times
@@ -44,17 +44,17 @@ public abstract class BaseFingerprint {
     private boolean mIsCalledStartIdentify = false;         // if started identify
     private boolean mIsCanceledIdentify = false;            // if canceled identify
 
-    public BaseFingerprint(Context context, FingerprintIdentifyExceptionListener exceptionListener) {
+    public BaseFingerprint(Context context, ExceptionListener exceptionListener) {
         mContext = context;
         mExceptionListener = exceptionListener;
         mHandler = new Handler(Looper.getMainLooper());
     }
 
     // DO
-    public void startIdentify(int maxAvailableTimes, FingerprintIdentifyListener listener) {
+    public void startIdentify(int maxAvailableTimes, IdentifyListener identifyListener) {
         mMaxAvailableTimes = maxAvailableTimes;
+        mIdentifyListener = identifyListener;
         mIsCalledStartIdentify = true;
-        mIdentifyListener = listener;
         mIsCanceledIdentify = false;
         mNumberOfFailures = 0;
 
@@ -185,7 +185,7 @@ public abstract class BaseFingerprint {
         return true;
     }
 
-    public interface FingerprintIdentifyListener {
+    public interface IdentifyListener {
         void onSucceed();
 
         void onNotMatch(int availableTimes);
@@ -195,7 +195,7 @@ public abstract class BaseFingerprint {
         void onStartFailedByDeviceLocked();
     }
 
-    public interface FingerprintIdentifyExceptionListener {
+    public interface ExceptionListener {
         void onCatchException(Throwable exception);
     }
 }
