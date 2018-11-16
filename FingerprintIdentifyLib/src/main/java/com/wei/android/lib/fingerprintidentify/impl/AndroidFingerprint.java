@@ -1,6 +1,7 @@
 package com.wei.android.lib.fingerprintidentify.impl;
 
 import android.content.Context;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 
 import com.wei.android.lib.fingerprintidentify.aosp.FingerprintManagerCompat;
@@ -74,9 +75,14 @@ public class AndroidFingerprint extends BaseFingerprint {
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
-                    // 7 - FingerprintManager.FINGERPRINT_ERROR_LOCKOUT
-                    // 9 - FingerprintManager.FINGERPRINT_ERROR_LOCKOUT_PERMANENT (API-27)
-                    onFailed(errMsgId == 7 || errMsgId == 9);
+
+                    if (errMsgId == FingerprintManager.FINGERPRINT_ERROR_CANCELED ||
+                            errMsgId == FingerprintManager.FINGERPRINT_ERROR_USER_CANCELED) {
+                        return;
+                    }
+
+                    onFailed(errMsgId == FingerprintManager.FINGERPRINT_ERROR_LOCKOUT ||
+                            errMsgId == FingerprintManager.FINGERPRINT_ERROR_LOCKOUT_PERMANENT);
                 }
             }, null);
         } catch (Throwable e) {
