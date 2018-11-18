@@ -14,7 +14,7 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 **1. Gradle 添加引用**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.3'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.4'
 
 **2. AndroidManifest 添加权限**
 
@@ -88,6 +88,8 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
     5. 魅族的指纹SDK在魅蓝NOTE3上也可能出现功能异常，比如调用release后也不能恢复mback模式。
 
 **7. 更新记录**
+
+**v1.2.4**　`2018.11.16`　调用 cancelIdentify 关闭指纹识别不回调 onFailed。
 
 **v1.2.3**　`2018.11.15`　适配AndroidX。支持AndroidL及以下系统。支持自定义实现指纹识别。
 

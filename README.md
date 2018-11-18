@@ -16,7 +16,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.3'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.4'
 
 **2. AndroidManifest**
 
@@ -92,6 +92,8 @@ Api priority level：Android > Samsung > MeiZu
     5. MeiZu's SDK runs abnormally on MeiLan Note3 sometimes, it can't switch to mback mode event called release。
 
 **7. Version Update**
+
+**v1.2.4**　`2018.11.16`　cancelIdentify will not call onFailed.
 
 **v1.2.3**　`2018.11.15`　Migrate to AndroidX. Support Android L. Support custom identify implementation.
 
