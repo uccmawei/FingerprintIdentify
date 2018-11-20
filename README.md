@@ -16,7 +16,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.4'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.5'
 
 **2. AndroidManifest**
 
@@ -93,11 +93,13 @@ Api priority level：Android > Samsung > MeiZu
 
 **7. Version Update**
 
+**v1.2.5**　`2018.11.20`　minSdkVersion 21 -> 14.
+
 **v1.2.4**　`2018.11.16`　cancelIdentify will not call onFailed.
 
 **v1.2.3**　`2018.11.15`　Migrate to AndroidX. Support Android L. Support custom identify implementation.
 
-**v1.2.1**　`2017.07.25`　Add new callback onStartFailedByDeviceLocked：The first start failed because the device was locked temporarily.
+**v1.2.1**　`2017.07.25`　Add new callback onStartFailedByDeviceLocked.
 
 **v1.2.0**　`2017.07.10`　Add android M limit. Add new callback parameter to notice is that device locked temporarily。
 

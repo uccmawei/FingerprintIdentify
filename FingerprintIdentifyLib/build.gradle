@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,7 @@ publish {
     userOrg = 'uccmawei'
     groupId = 'com.wei.android.lib'
     artifactId = 'fingerprintidentify'
-    publishVersion = '1.2.4'
+    publishVersion = '1.2.5'
     desc = 'Android fingerprint api for Android, Samsung, MeiZu.'
     website = 'https://github.com/uccmawei/FingerprintIdentify'
 }
