@@ -16,7 +16,7 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.5'
+    compile 'com.wei.android.lib:fingerprintidentify:1.2.6'
 
 **2. AndroidManifest**
 
@@ -92,6 +92,8 @@ Api priority level：Android > Samsung > MeiZu
     5. MeiZu's SDK runs abnormally on MeiLan Note3 sometimes, it can't switch to mback mode event called release。
 
 **7. Version Update**
+
+**v1.2.6**　`2018.12.11`　Support AndroidX android.enableJetifier=true.
 
 **v1.2.5**　`2018.11.20`　minSdkVersion 21 -> 14.
 
