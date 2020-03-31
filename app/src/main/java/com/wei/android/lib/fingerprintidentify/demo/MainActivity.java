@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onUserCancelled() {
+                append("\n" + getString(R.string.user_cancelled) );
+            }
+
+            @Override
             public void onFailed(boolean isDeviceLocked) {
                 append("\n" + getString(R.string.failed) + " " + isDeviceLocked);
             }

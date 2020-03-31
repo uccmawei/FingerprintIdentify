@@ -76,8 +76,12 @@ public class AndroidFingerprint extends BaseFingerprint {
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
 
-                    if (errMsgId == FingerprintManager.FINGERPRINT_ERROR_CANCELED ||
-                            errMsgId == FingerprintManager.FINGERPRINT_ERROR_USER_CANCELED) {
+                    if (errMsgId == FingerprintManager.FINGERPRINT_ERROR_USER_CANCELED) {
+                        onUserCancelled();
+                        return;
+                    }
+
+                    if (errMsgId == FingerprintManager.FINGERPRINT_ERROR_CANCELED) {
                         return;
                     }
 

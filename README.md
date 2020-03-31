@@ -52,6 +52,11 @@ Api priority level：Android > Samsung > MeiZu
         }
 
         @Override
+        public void onUserCancelled() {
+            // user cancel fingerprint identifying process
+        }
+
+        @Override
         public void onFailed(boolean isDeviceLocked) {
             // failed, release hardware automatically
             // isDeviceLocked: is device locked temporarily

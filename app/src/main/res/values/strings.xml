@@ -8,6 +8,7 @@
     <string name="succeed">验证通过，结束</string>
     <string name="not_match">指纹不匹配，剩余 %1d 次机会</string>
     <string name="failed">验证失败，结束，是设备锁定</string>
+    <string name="user_cancelled">User cancelled</string>
     <string name="start_failed">开始失败，设备暂时锁定</string>
 
     <string name="click_to_start">请点击开始验证按钮开始</string>
