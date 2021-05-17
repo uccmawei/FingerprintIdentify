@@ -12,9 +12,17 @@ API调用优先级：安卓API > 三星SDK > 魅族SDK
 
 [![](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/QRCode_zh.png)](https://github.com/uccmawei/FingerprintIdentify/raw/master/other/demo.apk)
 
-**1. Gradle 添加引用**
+**1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.6'
+    allprojects {
+    	repositories {
+    		...
+    		maven { url 'https://jitpack.io' }
+    	}
+    }
+    dependencies {
+    	implementation 'com.github.uccmawei:FingerprintIdentify:1.2.6'
+    }
 
 **2. AndroidManifest 添加权限**
 
