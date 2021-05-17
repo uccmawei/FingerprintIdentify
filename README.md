@@ -16,7 +16,15 @@ Api priority level：Android > Samsung > MeiZu
 
 **1. Gradle**
 
-    compile 'com.wei.android.lib:fingerprintidentify:1.2.6'
+    allprojects {
+    	repositories {
+    		...
+    		maven { url 'https://jitpack.io' }
+    	}
+    }
+    dependencies {
+    	implementation 'com.github.uccmawei:FingerprintIdentify:1.2.6'
+    }
 
 **2. AndroidManifest**
 
@@ -30,7 +38,7 @@ Api priority level：Android > Samsung > MeiZu
     mFingerprintIdentify.setSupportAndroidL(true);              // support android L
     mFingerprintIdentify.setExceptionListener(listener);        // exception callback for develop
     mFingerprintIdentify.init();                                // init
-
+    
     mFingerprintIdentify.isFingerprintEnable();                 // is fingerprint usable
     mFingerprintIdentify.isHardwareEnable();                    // is hardware usable
     mFingerprintIdentify.isRegisteredFingerprint();             // is fingerprint collected
@@ -45,18 +53,18 @@ Api priority level：Android > Samsung > MeiZu
         public void onSucceed() {
             // succeed, release hardware automatically
         }
-
+    
         @Override
         public void onNotMatch(int availableTimes) {
             // not match, try again automatically
         }
-
+    
         @Override
         public void onFailed(boolean isDeviceLocked) {
             // failed, release hardware automatically
             // isDeviceLocked: is device locked temporarily
         }
-
+    
         @Override
         public void onStartFailedByDeviceLocked() {
             // the first start failed because the device was locked temporarily
@@ -66,7 +74,7 @@ Api priority level：Android > Samsung > MeiZu
 **5. Proguard**
 
     -ignorewarnings
-
+    
     # MeiZuFingerprint
     -keep class com.fingerprints.service.** { *; }
     
@@ -78,17 +86,17 @@ Api priority level：Android > Samsung > MeiZu
     1. Usually, device will be locked temporarily when read incorrect fingerprints continuously 5 times.
        And it need to takes about 30 seconds to get back to normal.
        But it's not standardized, MeiZu SDK has no limit to this.
-
+    
     2. About 'com.android.support:appcompat-v7:25.3.1' version
        The class FingerprintManagerCompatApi23 will check the feature FEATURE_FINGERPRINT from version 25.
        More info：https://code.google.com/p/android/issues/detail?id=231939
-
+    
     3. Some manufacturers will transplant standard fingerprint API to the device
        which version less than Android M, such as OPPO.
        But the API will be modified sometimes and cause calling crash, such as VIVO.
-
+    
     4. We need to check the manufacturers because Meizu's sdk is available on some other devices.
-
+    
     5. MeiZu's SDK runs abnormally on MeiLan Note3 sometimes, it can't switch to mback mode event called release。
 
 **7. Version Update**
